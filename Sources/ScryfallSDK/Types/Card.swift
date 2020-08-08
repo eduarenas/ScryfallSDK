@@ -191,11 +191,13 @@ public struct Card: Codable {
     /// Newly spoiled cards may not have this field yet.
     public let illustrationId: UUID?
 
-    /// An object listing available imagery for this card.
-    public let imageUris: [ImageType: URL]?
+    /// A dictionary listing available imagery for this card.
+    // TODO: Fix
+     public let imageUris: [String: URL]?
 
     /// An object containing daily price information for this card, including usd, usd_foil, eur, and tix prices, as strings.
-    public let prices: [PriceCategory: Double]
+    // TODO: Fix
+     public let prices: [String: String?]
 
     /// The localized name printed on this card, if any.
     public let printedName: String?
@@ -213,7 +215,8 @@ public struct Card: Codable {
     public let promoTypes: [String]?
 
     /// An object providing URIs to this card’s listing on major marketplaces.
-    public let purchaseUris: [String: URL]
+    // TODO: Should this really be optional?
+    public let purchaseUris: [String: URL]?
 
     /// This card’s `Rarity`.
     public let rarity: Rarity
@@ -280,9 +283,10 @@ public struct Card: Codable {
         /// Newly spoiled cards may not have this field yet.
         public let illustrationId: UUID?
 
-        /// An object providing URIs to imagery for this face, if this is a double-sided card.
+        /// A dictionary  providing URIs to imagery for this face, if this is a double-sided card.
         /// If this card is not double-sided, then the image_uris property will be part of the parent object instead.
-        public let imageUris: [ImageType: URL]?
+        // TODO: Fix this
+         public let imageUris: [String: URL]?
 
         /// This face’s loyalty, if any.
         public let loyalty: String?
@@ -360,7 +364,7 @@ public struct Card: Codable {
         case token
 
         /// Tokens with another token printed on the back
-        case doubleFacedToken
+        case doubleFacedToken = "double_faced_token" // TODO: Do I need this?
 
         /// Emblem cards
         case emblem
@@ -372,10 +376,10 @@ public struct Card: Codable {
         case host
 
         /// Art Series collectable double-faced cards
-        case artSeries
+        case artSeries = "art_series" // TODO: Do I need this?
 
         /// A Magic card with two sides that are unrelated
-        case doubleSided
+        case doubleSided = "double_sided"  // TODO: Do I need this?
     }
 
     /// Formats of play.
@@ -402,7 +406,7 @@ public struct Card: Codable {
         case legal
 
         /// Card is not part of the given format and can't be played.
-        case notLegal
+        case notLegal = "not_legal" // TODO: Why is this needed with the `.convertFromSnakeCase` decoding strategy?
 
         /// If you wish to use a card that’s on the restricted list for your chosen format, you may include only a single copy of that card,
         /// counting both your main deck and your sideboard. Currently, only the Vintage format uses a restricted list.
@@ -425,16 +429,16 @@ public struct Card: Codable {
     public enum Frame: String, Codable {
 
         /// The original Magic card frame, starting from Limited Edition Alpha.
-        case y1993
+        case y1993 = "1993"
 
         /// The updated classic frame starting from Mirage block
-        case y1997
+        case y1997 = "1997"
 
         /// The “modern” Magic card frame, introduced in Eighth Edition and Mirrodin block.
-        case y2003
+        case y2003 = "2003"
 
         /// The holofoil-stamp Magic card frame, introduced in Magic 2015.
-        case y2015
+        case y2015 = "2015"
 
         /// The frame used on cards [from the future](http://mtgsalvation.gamepedia.com/Timeshifted#Timeshifted_in_Future_Sight)
         case future
@@ -552,13 +556,13 @@ public struct RelatedCard: Codable {
         case token
 
         /// One part of a meld pair that can combine with another part to form an oversized card face.
-        case meldPart
+        case meldPart = "meld_part" // TODO: Do I need this?
 
         /// Oversized card face; the result of combining two med parts.
-        case meldResult
+        case meldResult = "meld_result" // TODO: Do I need this?
 
         /// Other cards that can be used for combos.
-        case comboPiece
+        case comboPiece = "combo_piece" // TODO: Do I need this?
     }
 }
 
@@ -573,6 +577,12 @@ public enum Game: String, Codable {
 
     /// Magic: The Gathering Online
     case mtgo
+
+    /// Magic: The Gathering for Sega Dreamcast
+    case sega
+
+    /// Magic: The Gathering computer game written by MicroProse
+    case astral
 }
 
 public enum ImageType: String, Codable {

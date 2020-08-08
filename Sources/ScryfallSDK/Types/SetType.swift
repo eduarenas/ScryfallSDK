@@ -23,22 +23,22 @@ public enum SetType: String, Codable {
     case masterpiece
 
     /// From the Vault gift sets
-    case fromTheVault
+    case fromTheVault = "from_the_vault" // TODO: Do I need this?
 
     /// Spellbook series gift sets
     case spellbook
 
     /// Premium Deck Series decks
-    case premiumDeck
+    case premiumDeck = "premium_deck" // TODO: Do I need this?
 
     /// Duel Decks
-    case duelDeck
+    case duelDeck = "duel_deck" // TODO: Do I need this?
 
     /// Special draft sets, like Conspiracy and Battlebond
-    case draftInnovation
+    case draftInnovation = "draft_innovation" // TODO: Do I need this?
 
     /// Magic Online treasure chest prize sets
-    case treasureChest
+    case treasureChest = "treasure_chest" // TODO: Do I need this?
 
     /// Commander preconstructed decks
     case commander

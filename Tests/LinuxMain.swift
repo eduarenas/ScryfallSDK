@@ -3,5 +3,5 @@ import XCTest
 import ScryfallSDKTests
 
 var tests = [XCTestCaseEntry]()
-tests += ScryfallSDKTests.allTests()
+tests += DecodingTests.allTests()
 XCTMain(tests)
