@@ -16,8 +16,57 @@ final class DecodingTests: XCTestCase {
         let testFilePath = #file
         let testDataFilePath = URL(fileURLWithPath: testFilePath).deletingLastPathComponent().appendingPathComponent("Data/Decompressed/all_cards.json")
         let testData = try Data(contentsOf: testDataFilePath)
-        XCTAssertNoThrow(try JSONDecoder.scryfallDecoder.decode([Card].self, from: testData))
-        // TODO: Look for always `nil` optional fields, thise might be silently failing to decode
+
+        let allCards = try JSONDecoder.scryfallDecoder.decode([Card].self, from: testData)
+
+        // Make sure no optional field is always `nil`, as this might indicate silent decoding issues
+        XCTAssertTrue(allCards.contains(where: { $0.arenaId != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.mtgoId != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.mtgoFoilId != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.multiverseIds != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.tcgplayerId != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.allParts != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.cardFaces != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.colorIndicator != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.colors != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.edhrecRank != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.handModifier != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.lifeModifier != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.loyalty != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.manaCost != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.oracleText != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.power != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.producedMana != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.toughness != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.artist != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.contentWarning != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.flavorName != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.flavorText != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.frameEffects != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.illustrationId != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.lifeModifier != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.imageUris != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.printedName != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.printedText != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.printedTypeLine != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.promoTypes != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.variationOf != nil }))
+        XCTAssertTrue(allCards.contains(where: { $0.watermark != nil }))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.artist != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.colorIndicator != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.colors != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.flavorText != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.illustrationId != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.imageUris != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.loyalty != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.oracleText != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.power != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.colorIndicator != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.printedName != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.printedText != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.printedTypeLine != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.toughness != nil }) ?? false)}))
+        XCTAssertTrue(allCards.contains(where: { card in (card.cardFaces?.contains(where: { face in face.watermark != nil }) ?? false)}))
     }
 
     func testRulingsDecode() throws {
@@ -29,5 +78,6 @@ final class DecodingTests: XCTestCase {
 
     static var allTests = [
         ("testCardsDecode", testCardsDecode),
+        ("testRulingsDecode", testRulingsDecode)
     ]
 }
