@@ -50,5 +50,5 @@ public struct CardSymbol: Codable {
     /// An array of plaintext versions of this symbol that Gatherer uses on old cards to describe original printed text.
     ///
     /// For example: `{W} `has `["oW", "ooW"]` as alternates
-    public let gathererAlternates: String?
+    public let gathererAlternates: [String]?
 }

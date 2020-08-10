@@ -97,6 +97,16 @@ final class DecodingTests: XCTestCase {
         XCTAssertNoThrow(try JSONDecoder.scryfallDecoder.decode([Ruling].self, from: testData))
     }
 
+    func testSymbolsDecode() throws {
+        let testFilePath = #file
+        let testDataFilePath = URL(fileURLWithPath: testFilePath).deletingLastPathComponent().appendingPathComponent("Data/Decompressed/all_symbols.json")
+        let testData = try Data(contentsOf: testDataFilePath)
+        let allSymbols = try JSONDecoder.scryfallDecoder.decode([CardSymbol].self, from: testData)
+        XCTAssertTrue(allSymbols.contains(where: { $0.looseVariant != nil }))
+        XCTAssertTrue(allSymbols.contains(where: { $0.cmc != nil }))
+        XCTAssertTrue(allSymbols.contains(where: { $0.gathererAlternates != nil }))
+    }
+
     static var allTests = [
         ("testCardsDecode", testCardsDecode),
         ("testRulingsDecode", testRulingsDecode)
