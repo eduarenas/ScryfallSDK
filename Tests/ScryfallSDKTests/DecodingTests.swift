@@ -14,7 +14,12 @@ final class DecodingTests: XCTestCase {
 
     func testCardsDecode() throws {
         let testFilePath = #file
-        let testDataFilePath = URL(fileURLWithPath: testFilePath).deletingLastPathComponent().appendingPathComponent("Data/Decompressed/all_cards.json")
+
+        // all_cards.json contains every single card object in Scryfall and can be used to test successful decoding of all cardsin the database, but running
+        // the test with this data set can take a long time. some_cards.json contains a sample of 10,000 of the same cards. Use some_cards.json for quick
+        // test runs in iteration, and use all_cards.json to confirm all cards will successfully decode.
+        let testDataFilePath = URL(fileURLWithPath: testFilePath).deletingLastPathComponent().appendingPathComponent("Data/Decompressed/some_cards.json")
+        // let testDataFilePath = URL(fileURLWithPath: testFilePath).deletingLastPathComponent().appendingPathComponent("Data/Decompressed/all_cards.json")
         let testData = try Data(contentsOf: testDataFilePath)
 
         let allCards = try JSONDecoder.scryfallDecoder.decode([Card].self, from: testData)
