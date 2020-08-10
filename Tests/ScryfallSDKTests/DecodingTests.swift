@@ -12,6 +12,15 @@ import XCTest
 /// the data has to be decompressed first. This can be done running the script `Scripts/decompress_test_data.sh` once.
 final class DecodingTests: XCTestCase {
 
+    func testListDecode() throws {
+        let testFilePath = #file
+        let testDataFilePath = URL(fileURLWithPath: testFilePath).deletingLastPathComponent().appendingPathComponent("Data/Decompressed/list.json")
+        let testData = try Data(contentsOf: testDataFilePath)
+        let list = try JSONDecoder.scryfallDecoder.decode(List<Card>.self, from: testData)
+        XCTAssertNotNil(list.nextPage)
+        XCTAssertNil(list.warnings)
+    }
+
     func testCardsDecode() throws {
         let testFilePath = #file
 
