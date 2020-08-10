@@ -21,6 +21,13 @@ final class DecodingTests: XCTestCase {
         XCTAssertNil(list.warnings)
     }
 
+    func testSetDecode() throws {
+        let testFilePath = #file
+        let testDataFilePath = URL(fileURLWithPath: testFilePath).deletingLastPathComponent().appendingPathComponent("Data/Decompressed/all_sets.json")
+        let testData = try Data(contentsOf: testDataFilePath)
+        XCTAssertNoThrow(try JSONDecoder.scryfallDecoder.decode([Set].self, from: testData))
+    }
+
     func testCardsDecode() throws {
         let testFilePath = #file
 

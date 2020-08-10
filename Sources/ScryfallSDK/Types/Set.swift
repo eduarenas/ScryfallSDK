@@ -61,7 +61,7 @@ public struct Set: Codable {
     public let nonfoilOnly: Bool
 
     /// A link to this set’s permapage on Scryfall’s website.
-    public let scryfallUrl: URL
+    public let scryfallUri: URL
 
     /// A link to this set object on Scryfall’s API.
     public let uri: URL
