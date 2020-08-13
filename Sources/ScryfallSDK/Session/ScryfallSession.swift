@@ -8,8 +8,10 @@
 import Combine
 import Foundation
 
-/// Main API object. Functions to call specific endpoints should be added via extensions.
+/// Main SDK interface containing functions to fetch objects from the Scryfall REST API.
 public final class ScryfallSession {
+
+    public static let `default` = ScryfallSession()
 
     /// Performs a request and call the completion handler with a secoded response object.
     /// - Parameters:

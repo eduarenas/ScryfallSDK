@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ScryfallSession+Set.swift
 //  
 //
 //  Created by Eduardo Arenas on 8/10/20.
