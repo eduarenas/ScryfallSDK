@@ -1,5 +1,5 @@
 //
-//  ScryfallSession+Cards.swift
+//  ScryfallSession+CardsTests.swift
 //  
 //
 //  Created by Eduardo Arenas on 8/10/20.
@@ -52,7 +52,7 @@ public extension ScryfallSession {
             "page": page
         ])
 
-        let url = URL(path: .cardByName, query: queryArgs)
+        let url = URL(path: .cardSearch, query: queryArgs)
         let request = URLRequest(url: url, method: .get)
         performRequest(request, completion: completion)
     }
@@ -101,14 +101,14 @@ public extension ScryfallSession {
     }
 
     func randomCard(
-        query: String?,
+        query: String? = nil,
         completion: @escaping (_ result: Result<Card, Swift.Error>) -> Void
     ) {
         let queryArgs = queryDict(fromArgs: [
             "q": query,
         ])
 
-        let url = URL(path: .cardAutocomplete, query: queryArgs)
+        let url = URL(path: .randomCard, query: queryArgs)
         let request = URLRequest(url: url, method: .get)
         performRequest(request, completion: completion)
     }
@@ -119,8 +119,12 @@ public extension ScryfallSession {
     ) {
         let url = URL(path: .cardCollection)
         do {
-            let body = try JSONEncoder.scryfallEncoder.encode(identifiers)
-            let request = URLRequest(url: url, method: .post, body: body)
+            let body = try JSONEncoder.scryfallEncoder.encode(["identifiers": identifiers])
+            let request = URLRequest(
+                url: url,
+                method: .post,
+                headers: ["Content-Type": "application/json"],
+                body: body)
             performRequest(request, completion: completion)
         } catch let error {
             completion(Result.failure(error))
@@ -172,4 +176,3 @@ public extension ScryfallSession {
         args.compactMapValues { $0 as? CustomStringConvertible }
     }
 }
-

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ParseManaResponse.swift
 //  
 //
 //  Created by Eduardo Arenas on 8/16/20.

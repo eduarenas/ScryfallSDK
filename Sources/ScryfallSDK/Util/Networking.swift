@@ -44,9 +44,15 @@ extension URLRequest {
     ///   - method: `HTTPMethod` to be used for the request.
     ///   - body: Data to be sent as part of the HTTP request.
     /// - Returns: `URLRequest` calue with all the configuration needed by `URLSession` to perform a request.
-    init(url: URL, method: HTTPMethod, body: Data? = nil) {
+    init(url: URL, method: HTTPMethod, headers: [String: CustomStringConvertible]? = nil, body: Data? = nil) {
         self.init(url: url)
         self.httpMethod = method.rawValue
         self.httpBody = body
+
+        if let headers = headers {
+            headers.forEach { (key, value) in
+                self.setValue(value.description, forHTTPHeaderField: key)
+            }
+        }
     }
 }

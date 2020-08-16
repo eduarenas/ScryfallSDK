@@ -10,7 +10,7 @@ import Foundation
 // Card Symbol related catalogs.
 private extension Path {
     static let cardNames = Path("/catalog/card-names")
-    static let cardArtistNames = Path("/catalog/artist-names")
+    static let artistNames = Path("/catalog/artist-names")
     static let wordBank = Path("/catalog/word-bank")
     static let creatureTypes = Path("/catalog/creature-types")
     static let planeswalkerTypes = Path("/catalog/planeswalker-types")
@@ -35,8 +35,8 @@ public extension ScryfallSession {
         performRequest(request, completion: completion)
     }
 
-    func cardArtistNames(completion: @escaping (_ result: Result<Catalog, Swift.Error>) -> Void) {
-        let url = URL(path: .cardArtistNames)
+    func artistNames(completion: @escaping (_ result: Result<Catalog, Swift.Error>) -> Void) {
+        let url = URL(path: .artistNames)
         let request = URLRequest(url: url, method: .get)
         performRequest(request, completion: completion)
     }
