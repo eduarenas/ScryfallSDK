@@ -18,7 +18,7 @@ import Foundation
 /// * Every card type in every product is included, including planar cards, schemes, Vanguard cards, tokens, emblems, and funny cards.
 /// Make sure you’ve reviewed documentation for the Card type.
 /// Bulk data is only collected once every 12 hours. You can use the card API methods to retrieve fresh objects instead.
-public struct BulkData: Codable {
+public struct BulkData: Decodable {
 
     /// A unique ID for this bulk item.
     public let id: UUID
@@ -51,7 +51,7 @@ public struct BulkData: Codable {
     public let contentEncoding: ContentEncoding
 
     /// Possible kinds of bulk items that can be downloaded.
-    public enum DataType: String, Codable {
+    public enum DataType: String, Decodable {
 
         /// A JSON file containing one Scryfall card object for each Oracle ID on Scryfall.
         /// The chosen sets for the cards are an attempt to return the most up-to-date recognizable version of the card.
@@ -71,13 +71,13 @@ public struct BulkData: Codable {
     }
 
     /// Possible bulk data file types.
-    public enum MIMEType: String, Codable {
+    public enum MIMEType: String, Decodable {
 
         case json = "application/json"
     }
 
     /// Possible Content-Encoding used to transfer buld items.
-    public enum ContentEncoding: String, Codable {
+    public enum ContentEncoding: String, Decodable {
 
         case gzip
     }

@@ -8,7 +8,7 @@
 import Foundation
 
 /// Scryfall provides an overall categorization for each Set in the `set_type` property. An exhaustive list of `set_types` is listed below:
-public enum SetType: String, Codable {
+public enum SetType: String, Decodable {
 
     /// A yearly Magic core set (Tenth Edition, etc)
     case core

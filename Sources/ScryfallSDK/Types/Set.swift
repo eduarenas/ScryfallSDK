@@ -13,7 +13,7 @@ import Foundation
 /// Such sets will likely have a `code` that begins with `p` or `t`, such as `pcel` or `tori`.
 ///
 /// Official sets always have a three-letter set code, such as zen.
-public struct Set: Codable {
+public struct Set: Decodable {
 
     /// A unique ID for this set on Scryfall that will not change.
     public let id: UUID

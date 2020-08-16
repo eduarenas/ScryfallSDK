@@ -13,7 +13,7 @@ import Foundation
 ///
 /// Rulings with a scryfall source have been added by the Scryfall team, either to provide additional context for the card,
 /// or explain how the card works in an unofficial format (such as Duel Commander).
-public struct Ruling: Codable {
+public struct Ruling: Decodable {
 
     /// Which company produced this ruling, either wotc or scryfall.
     public let source: Source
@@ -25,7 +25,7 @@ public struct Ruling: Codable {
     public let comment: String
 
     /// Possible sources of rulings for a card.
-    public enum Source: String, Codable {
+    public enum Source: String, Decodable {
 
         /// Wizards of the Coast
         case wotc

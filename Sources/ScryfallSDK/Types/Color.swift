@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum Color: String, Codable {
+public enum Color: String, Decodable {
     case white = "W"
     case blue  = "U"
     case black = "B"

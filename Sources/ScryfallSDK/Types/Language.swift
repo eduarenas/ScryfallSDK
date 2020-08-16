@@ -15,7 +15,7 @@ import Foundation
 /// Please note that Oracle text is always English, per game rules.
 /// Cards printed in non-English languages are a translation of the Oracle text at the time the card was printed,
 /// but these texts do not receive errata.
-public enum Language: String, Codable {
+public enum Language: String, Decodable {
 
     /// English
     case en

@@ -9,7 +9,7 @@ import Foundation
 
 /// An Error object represents a failure to find information or understand the input you provided to the API.
 /// Error objects are always transmitted with the appropriate `4XX` or `5XX` HTTP status code.
-public struct Error: Codable, Swift.Error {
+public struct Error: Decodable, Swift.Error {
 
     /// An integer HTTP status code for this error.
     public let status: Int

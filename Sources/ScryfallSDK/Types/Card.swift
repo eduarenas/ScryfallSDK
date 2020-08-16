@@ -8,7 +8,7 @@
 import Foundation
 
 /// Card objects represent individual Magic: The Gathering cards that players could obtain and add to their collection (with a few minor exceptions).
-public struct Card: Codable {
+public struct Card: Decodable {
 
     // MARK: Core Card Fields
 
@@ -265,7 +265,7 @@ public struct Card: Codable {
 
 
     /// Multiface cards have a `cardFaces` property containing at least two `CardFace` objects.
-    public struct Face: Codable {
+    public struct Face: Decodable {
 
         /// The name of the illustrator of this card face. Newly spoiled cards may not have this field yet.
         public let artist: String?
@@ -325,7 +325,7 @@ public struct Card: Codable {
 
     /// `Layout` categorizes the arrangement of card parts, faces, and other bounded regions on cards.
     /// The layout can be used to programmatically determine which other properties on a card you can expect.
-    public enum Layout: String, Codable {
+    public enum Layout: String, Decodable {
 
         /// A standard Magic card with one face
         case normal
@@ -383,7 +383,7 @@ public struct Card: Codable {
     }
 
     /// Formats of play.
-    public enum Format: String, Codable {
+    public enum Format: String, Decodable {
         case standard
         case future
         case historic
@@ -400,7 +400,7 @@ public struct Card: Codable {
     }
 
     /// Legality of the card in a given format.
-    public enum Legality: String, Codable {
+    public enum Legality: String, Decodable {
 
         /// Card can be played in the given format.
         case legal
@@ -418,7 +418,7 @@ public struct Card: Codable {
     }
 
     /// Possible card border colors
-    public enum BorderColor: String, Codable {
+    public enum BorderColor: String, Decodable {
         case black
         case borderless
         case gold
@@ -426,7 +426,7 @@ public struct Card: Codable {
         case white
     }
 
-    public enum Frame: String, Codable {
+    public enum Frame: String, Decodable {
 
         /// The original Magic card frame, starting from Limited Edition Alpha.
         case y1993 = "1993"
@@ -445,7 +445,7 @@ public struct Card: Codable {
     }
 
     /// `FrameEffect` tracks additional frame artwork applied over a particular frame. For example, there are both 2003 and 2015-frame cards with the Nyx-touched effect.
-    public enum FrameEffect: String, Codable {
+    public enum FrameEffect: String, Decodable {
 
         /// The cards have a legendary crown
         case legendary
@@ -497,7 +497,7 @@ public struct Card: Codable {
     }
 
     /// Rarity indicates the availability of a card.
-    public enum Rarity: String, Codable {
+    public enum Rarity: String, Decodable {
 
         /// Most abundant cards in the game.
         case common
@@ -512,7 +512,7 @@ public struct Card: Codable {
         case mythic
     }
 
-    public struct PriceCategory: Hashable, Codable {
+    public struct PriceCategory: Hashable, Decodable {
 
         /// Price in USD
         static let usd = PriceCategory(value: "usd")
@@ -532,7 +532,7 @@ public struct Card: Codable {
 
 /// Cards that are closely related to other cards (because they call them by name, or generate a token, or meld, etc)
 /// have a `allParts` property that contains `RelatedCard` objects.
-public struct RelatedCard: Codable {
+public struct RelatedCard: Decodable {
 
     /// An unique ID for this card in Scryfall’s database.
     public let id: UUID
@@ -550,7 +550,7 @@ public struct RelatedCard: Codable {
     public let uri: URL
 
     /// Possible relationship role  values.
-    public enum Component: String, Codable {
+    public enum Component: String, Decodable {
 
         /// A marker used to represent any permanent that isn’t represented by a card.
         case token
@@ -567,7 +567,7 @@ public struct RelatedCard: Codable {
 }
 
 /// Versions of the game Magic: The Gathering.
-public enum Game: String, Codable {
+public enum Game: String, Decodable {
 
     /// Tabletop version of Magic: The Gathering
     case paper
@@ -585,7 +585,7 @@ public enum Game: String, Codable {
     case astral
 }
 
-public enum ImageType: String, Codable {
+public enum ImageType: String, Decodable {
 
     /// A transparent, rounded full card PNG. This is the best image to use for videos or other high-quality content. (745 x 1040 - PNG).
     case png

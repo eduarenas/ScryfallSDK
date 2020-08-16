@@ -9,7 +9,7 @@ import Foundation
 
 /// A List object represents a requested sequence of other objects (Cards, Sets, etc).
 /// List objects may be paginated, and also include information about issues raised when generating the list.
-public struct List<Object: Codable>: Codable {
+public struct List<Object: Decodable>: Decodable {
 
     /// An array of the requested objects, in a specific order.
     public let data: [Object]

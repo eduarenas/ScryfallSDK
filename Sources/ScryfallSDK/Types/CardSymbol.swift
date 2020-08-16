@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct CardSymbol: Codable {
+public struct CardSymbol: Decodable {
 
     /// The plaintext symbol. Often surrounded with curly braces `{}`.
     /// 
