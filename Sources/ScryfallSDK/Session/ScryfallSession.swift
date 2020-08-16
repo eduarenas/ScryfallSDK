@@ -9,7 +9,7 @@ import Combine
 import Foundation
 
 /// Main SDK interface containing functions to fetch objects from the Scryfall REST API.
-public final class ScryfallSession {
+public class ScryfallSession {
 
     public static let `default` = ScryfallSession()
 
@@ -18,7 +18,10 @@ public final class ScryfallSession {
     ///   - request: `URLRequest` fully describing the request to be performed.
     ///   - completion: Completion handler called whent he request finishes.
     ///   - result: Result with the fully decoded response or an error describing what went wrong.
-    func performRequest<ResponseType: Decodable>(_ request: URLRequest, completion: @escaping (_ result: Result<ResponseType, Swift.Error>) -> Void) {
+    func performRequest<ResponseType: Decodable>(
+        _ request: URLRequest,
+        completion: @escaping (_ result: Result<ResponseType, Swift.Error>) -> Void
+    ) {
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let error = error {
                 completion(Result.failure(error))

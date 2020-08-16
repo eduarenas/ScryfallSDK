@@ -29,7 +29,7 @@ extension URL {
     init(path: Path, query: [String: CustomStringConvertible]? = nil) {
         var urlComponets = URLComponents()
         urlComponets.scheme = "https"
-        urlComponets.host = "https://api.scryfall.com"
+        urlComponets.host = "api.scryfall.com"
         urlComponets.path = path.value
         urlComponets.queryItems = query?.map { URLQueryItem(name: $0.key, value: $0.value.description) }
         self = urlComponets.url!
