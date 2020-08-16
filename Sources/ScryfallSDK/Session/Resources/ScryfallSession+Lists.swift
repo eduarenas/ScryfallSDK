@@ -1,5 +1,5 @@
 //
-//  ScryfallSession+List.swift
+//  ScryfallSession+Lists.swift
 //  
 //
 //  Created by Eduardo Arenas on 8/10/20.

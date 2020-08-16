@@ -607,3 +607,52 @@ public enum ImageType: String, Codable {
     /// A small full card image. Designed for use as thumbnail or list icon (146 x 204 - JPG).
     case small
 }
+
+public enum CardId {
+    case id(UUID)
+    case mtgoId(Int)
+    case multiverseId(Int)
+    case oracleId(UUID)
+    case illustrationId(UUID)
+    case name(String)
+    case nameAndSet(name: String, set: String)
+    case collectorNumberAndSet(collectorNumber: String, set: String)
+}
+
+extension CardId: Encodable {
+
+    enum CodingKeys: CodingKey {
+        case id
+        case mtgoId
+        case multiverseId
+        case oracleId
+        case illustrationId
+        case name
+        case set
+        case collectorNumber
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+        case .id(let id):
+            try container.encode(id, forKey: .id)
+        case .mtgoId(let mtgoId):
+            try container.encode(mtgoId, forKey: .mtgoId)
+        case .multiverseId(let multiverseId):
+            try container.encode(multiverseId, forKey: .multiverseId)
+        case .oracleId(let oracleId):
+            try container.encode(oracleId, forKey: .oracleId)
+        case .illustrationId(let illustrationId):
+            try container.encode(illustrationId, forKey: .illustrationId)
+        case .name(let name):
+            try container.encode(name, forKey: .name)
+        case .nameAndSet(let name, let set):
+            try container.encode(name, forKey: .name)
+            try container.encode(set, forKey: .set)
+        case .collectorNumberAndSet(let collectorNumber, let set):
+            try container.encode(collectorNumber, forKey: .collectorNumber)
+            try container.encode(set, forKey: .set)
+        }
+    }
+}

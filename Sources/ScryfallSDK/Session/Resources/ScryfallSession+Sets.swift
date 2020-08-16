@@ -1,5 +1,5 @@
 //
-//  ScryfallSession+Set.swift
+//  ScryfallSession+Sets.swift
 //  
 //
 //  Created by Eduardo Arenas on 8/10/20.
@@ -8,7 +8,7 @@
 import Foundation
 
 // Set related paths.
-extension Path {
+private extension Path {
     static let sets = Path("/sets")
     static let setById = { (id: UUID) in Path("/sets/\(id)") }
     static let setByCode = { (code: String) in Path("/sets/\(code)") }
