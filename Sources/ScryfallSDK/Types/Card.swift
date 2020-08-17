@@ -608,14 +608,31 @@ public enum ImageType: String, Decodable {
     case small
 }
 
+/// Schemas that can be used to identify a card.
 public enum CardId {
+
+    /// Scryfall id.
     case id(UUID)
+
+    /// MTGO id.
     case mtgoId(Int)
+
+    /// Multiverse Id.
     case multiverseId(Int)
+
+    /// Newest edition of cards with oracle id.
     case oracleId(UUID)
+
+    /// Preferred scan of card with illustration id.
     case illustrationId(UUID)
+
+    /// Newest edition od a card with specified name.
     case name(String)
+
+    /// Card matching a name and set.
     case nameAndSet(name: String, set: String)
+
+    /// Card matching a collector number and set.
     case collectorNumberAndSet(collectorNumber: String, set: String)
 }
 
