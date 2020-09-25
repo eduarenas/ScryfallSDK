@@ -19,6 +19,10 @@ final class SetRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/sets")
+
+        _ = session.sets()
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testSetByCodeRequest() {
@@ -30,6 +34,10 @@ final class SetRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/sets/mmq")
+
+        _ = session.set(code: "mmq")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testSetByTCGplayerIdCodeRequest() {
@@ -41,6 +49,10 @@ final class SetRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/sets/tcgplayer/1909")
+
+        _ = session.set(tcgplayerId: 1909)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testSetByIdCodeRequest() {
@@ -52,5 +64,9 @@ final class SetRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents!.path, "/sets/2EC77B94-6D47-4891-A480-5D0B4E5C9372")
+
+        _ = session.set(id: UUID(uuidString: "2ec77b94-6d47-4891-a480-5d0b4e5c9372")!)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 }
