@@ -21,6 +21,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.path, "/cards/search")
         XCTAssertEqual(urlComponents?.queryItems?.count, 1)
         XCTAssertEqual(urlComponents?.queryItems?.first, URLQueryItem(name: "q", value: "nipper"))
+
+        _ = session.search("nipper")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testSearchRequestAllArgs() {
@@ -48,6 +52,30 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertTrue(urlComponents!.queryItems!.contains(URLQueryItem(name: "include_multilingual", value: "false")))
         XCTAssertTrue(urlComponents!.queryItems!.contains(URLQueryItem(name: "include_variations", value: "true")))
         XCTAssertTrue(urlComponents!.queryItems!.contains(URLQueryItem(name: "page", value: "1")))
+
+        _ = session.search("nipper",
+                           uniqueStrategy: .cards,
+                           order: .name,
+                           direction: .desc,
+                           includeExtras: true,
+                           includeMultilingual: false,
+                           includeVariations: true,
+                           page: 1)
+        let publisherRequest = session.capturedRequest
+        let publisherUrlComponents = URLComponents(url: publisherRequest!.url!, resolvingAgainstBaseURL: false)
+        XCTAssertEqual(publisherRequest?.httpMethod, "GET")
+        XCTAssertEqual(publisherUrlComponents?.scheme, "https")
+        XCTAssertEqual(publisherUrlComponents?.host, "api.scryfall.com")
+        XCTAssertEqual(publisherUrlComponents?.path, "/cards/search")
+        XCTAssertEqual(publisherUrlComponents?.queryItems?.count, 8)
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "q", value: "nipper")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "unique", value: "cards")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "order", value: "name")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "dir", value: "desc")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "include_extras", value: "true")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "include_multilingual", value: "false")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "include_variations", value: "true")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "page", value: "1")))
     }
 
     func testCardByExactNameRequestNoSet() {
@@ -61,6 +89,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.path, "/cards/named")
         XCTAssertEqual(urlComponents?.queryItems?.count, 1)
         XCTAssertEqual(urlComponents?.queryItems?.first, URLQueryItem(name: "exact", value: "boot nipper"))
+
+        _ = session.card(exactName: "boot nipper")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByExactNameRequestWithSet() {
@@ -75,6 +107,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.queryItems?.count, 2)
         XCTAssertTrue(urlComponents!.queryItems!.contains(URLQueryItem(name: "exact", value: "boot nipper")))
         XCTAssertTrue(urlComponents!.queryItems!.contains(URLQueryItem(name: "set", value: "IKO")))
+
+        _ = session.card(exactName: "boot nipper", set: "IKO")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByFuzzyNameNoSet() {
@@ -88,6 +124,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.path, "/cards/named")
         XCTAssertEqual(urlComponents?.queryItems?.count, 1)
         XCTAssertEqual(urlComponents?.queryItems?.first, URLQueryItem(name: "fuzzy", value: "boot nipper"))
+
+        _ = session.card(fuzzyName: "boot nipper")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByFuzzyNameWithSet() {
@@ -102,6 +142,17 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.queryItems?.count, 2)
         XCTAssertTrue(urlComponents!.queryItems!.contains(URLQueryItem(name: "fuzzy", value: "boot nipper")))
         XCTAssertTrue(urlComponents!.queryItems!.contains(URLQueryItem(name: "set", value: "IKO")))
+
+        _ = session.card(fuzzyName: "boot nipper", set: "IKO")
+        let publisherRequest = session.capturedRequest
+        let publisherUrlComponents = URLComponents(url: publisherRequest!.url!, resolvingAgainstBaseURL: false)
+        XCTAssertEqual(publisherRequest?.httpMethod, "GET")
+        XCTAssertEqual(publisherUrlComponents?.scheme, "https")
+        XCTAssertEqual(publisherUrlComponents?.host, "api.scryfall.com")
+        XCTAssertEqual(publisherUrlComponents?.path, "/cards/named")
+        XCTAssertEqual(publisherUrlComponents?.queryItems?.count, 2)
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "fuzzy", value: "boot nipper")))
+        XCTAssertTrue(publisherUrlComponents!.queryItems!.contains(URLQueryItem(name: "set", value: "IKO")))
     }
 
     func testCardAutocompleteRequest() {
@@ -115,6 +166,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.path, "/cards/autocomplete")
         XCTAssertEqual(urlComponents?.queryItems?.count, 1)
         XCTAssertEqual(urlComponents?.queryItems?.first, URLQueryItem(name: "q", value: "boot"))
+
+        _ = session.cardAutocomplete("boot")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testRandomCardRequestNoQuery() {
@@ -127,6 +182,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/random")
         XCTAssertEqual(urlComponents?.queryItems?.count, 0)
+
+        _ = session.randomCard()
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testRandomCardRequestWithQuery() {
@@ -140,6 +199,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.path, "/cards/random")
         XCTAssertEqual(urlComponents?.queryItems?.count, 1)
         XCTAssertEqual(urlComponents?.queryItems?.first, URLQueryItem(name: "q", value: "cancel"))
+
+        _ = session.randomCard(query: "cancel")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardCollectionRequest() throws {
@@ -173,6 +236,20 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertTrue(bodyDict["identifiers"]!.contains(["name": "Boot Nipper"]))
         XCTAssertTrue(bodyDict["identifiers"]!.contains(["name": "Ancient Tomb", "set": "uma" ]))
         XCTAssertTrue(bodyDict["identifiers"]!.contains(["collector_number": "150", "set": "mrd" ]))
+
+        _ = session.cardCollection(identifiers: [
+            .id(UUID(uuidString: "89923289-0f62-444e-a781-d9948f32eedd")!),
+            .mtgoId(10),
+            .multiverseId(20),
+            .oracleId(UUID(uuidString: "683a5707-cddb-494d-9b41-51b4584ded69")!),
+            .illustrationId(UUID(uuidString: "1311e0dd-56ba-40af-b173-b06915182001")!),
+            .name("Boot Nipper"),
+            .nameAndSet(name: "Ancient Tomb", set: "uma"),
+            .collectorNumberAndSet(collectorNumber: "150", set: "mrd")
+
+        ])
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByCodeAndNumberRequestNoLanguage() {
@@ -184,6 +261,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/iko/076")
+
+        _ = session.card(code: "iko", number: "076")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByCodeAndNumberRequestWithLanguage() {
@@ -195,6 +276,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/iko/076/es")
+
+        _ = session.card(code: "iko", number: "076", lang: .es)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByMultiverseIdRequest() {
@@ -206,6 +291,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/multiverse/479596")
+
+        _ = session.card(multiverseId: 479596)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByMtgoIdRequest() {
@@ -217,6 +306,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/mtgo/80161")
+
+        _ = session.card(mtgoId: 80161)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByArenaIdRequest() {
@@ -228,6 +321,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/arena/71143")
+
+        _ = session.card(arenaId: 71143)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByTCGplayerIdRequest() {
@@ -239,6 +336,10 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/tcgplayer/212705")
+
+        _ = session.card(tcgPlayerId: 212705)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testCardByIdRequest() {
@@ -250,5 +351,9 @@ final class CardRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/CFF5A5B8-F823-4429-ACD8-C4F34A676CB4")
+
+        _ = session.card(id: UUID(uuidString: "cff5a5b8-f823-4429-acd8-c4f34a676cb4")!)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 }
