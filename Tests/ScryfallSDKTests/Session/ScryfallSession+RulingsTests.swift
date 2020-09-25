@@ -19,6 +19,10 @@ final class RulingsRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/multiverse/479596/rulings")
+
+        _ = session.rulings(multiverseId: 479596)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testRulingsByMtgoIdRequest() {
@@ -30,6 +34,10 @@ final class RulingsRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/mtgo/80161/rulings")
+
+        _ = session.rulings(mtgoId: 80161)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testRulingsByArenaIdRequest() {
@@ -41,6 +49,10 @@ final class RulingsRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/arena/71143/rulings")
+
+        _ = session.rulings(arenaId: 71143)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testRulingsByCodeAndNumberRequestNoLanguage() {
@@ -52,6 +64,10 @@ final class RulingsRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/iko/076/rulings")
+
+        _ = session.rulings(code: "iko", number: "076")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testRulingsByIdRequest() {
@@ -63,5 +79,9 @@ final class RulingsRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/cards/CFF5A5B8-F823-4429-ACD8-C4F34A676CB4/rulings")
+
+        _ = session.rulings(id: UUID(uuidString: "cff5a5b8-f823-4429-acd8-c4f34a676cb4")!)
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 }
