@@ -19,6 +19,10 @@ final class CardSymbolsRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.scheme, "https")
         XCTAssertEqual(urlComponents?.host, "api.scryfall.com")
         XCTAssertEqual(urlComponents?.path, "/symbology")
+
+        _ = session.symbology()
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 
     func testParseManaRequest() {
@@ -32,5 +36,9 @@ final class CardSymbolsRequestsTests: XCTestCase {
         XCTAssertEqual(urlComponents?.path, "/symbology/parse-mana")
         XCTAssertEqual(urlComponents?.queryItems?.count, 1)
         XCTAssertEqual(urlComponents?.queryItems?.first, URLQueryItem(name: "cost", value: "RUx"))
+
+        _ = session.parseMana(cost: "RUx")
+        let publisherRequest = session.capturedRequest
+        XCTAssertEqual(request, publisherRequest)
     }
 }
