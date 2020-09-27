@@ -26,11 +26,9 @@ public extension ScryfallSession {
     /// - Parameter list: An instance of `List` representing a data page.
     /// - Returns: Publisher that will emit the the decoded fetched object at `nextPageUrl` or a failure with the error explaining what went wrong. The object will emit `nil` if there's no next page.
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    func nextPage<Object>(for list: List<Object>) -> AnyPublisher<List<Object>?, Swift.Error> {
+    func nextPage<Object>(for list: List<Object>) -> AnyPublisher<List<Object>, Swift.Error>? {
         guard let nextPageUrl = list.nextPage else {
-            return Just<List<Object>?>(nil)
-                .setFailureType(to: Swift.Error.self)
-                .eraseToAnyPublisher()
+            return nil
         }
         return requestPublisher(for: URLRequest(url: nextPageUrl, method: .get))
     }
@@ -51,7 +49,7 @@ public extension List {
     /// - Parameter session: An instance of `ScryfallSession` to use for performing the request. If omitted it will use  the default session.
     /// - Returns: Publisher that will emit the the decoded fetched object at `nextPageUrl` or a failure with the error explaining what went wrong. The object will emit `nil` if there's no next page.
     @available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 6.0, *)
-    func nextPage(in session: ScryfallSession = .default) -> AnyPublisher<List<Object>?, Swift.Error> {
+    func nextPage(in session: ScryfallSession = .default) -> AnyPublisher<List<Object>, Swift.Error>? {
         session.nextPage(for: self)
     }
 }

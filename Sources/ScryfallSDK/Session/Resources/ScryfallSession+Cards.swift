@@ -38,9 +38,9 @@ public extension ScryfallSession {
     /// 
     /// - Parameters:
     ///   - query: A fulltext search query.
-    ///   - uniqueStrategy: The strategy for omitting similar cards.
-    ///   - order: The method to sort returned cards.
-    ///   - direction: The direction to sort cards.
+    ///   - uniqueStrategy: The strategy for omitting similar cards. Defaults to `cards`.
+    ///   - order: The method to sort returned cards. Defaults to `name`.
+    ///   - direction: The direction to sort cards. Defaults to `auto`.
     ///   - includeExtras: If `true`, extra cards (tokens, planes, etc) will be included. Defaults to `false`.
     ///   - includeMultilingual: If `true`, cards in every language supported by Scryfall will be included. Defaults to `false`.
     ///   - includeVariations: If `true`, rare care variants will be included. Defaults to `false`.
