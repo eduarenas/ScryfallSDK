@@ -13,7 +13,7 @@ import Foundation
 public struct Catalog: Decodable {
 
     /// A link to the current catalog on Scryfall’s API.
-    public let uri: URL
+    public let uri: URL?
 
     /// The number of items in the `data` array.
     public let totalValues: Int
