@@ -380,6 +380,8 @@ public struct Card: Decodable {
 
         /// A Magic card with two sides that are unrelated
         case doubleSided = "double_sided"  // TODO: Do I need this?
+
+        case modalDoubleFacedCard = "modal_dfc"
     }
 
     /// Formats of play.
@@ -510,6 +512,10 @@ public struct Card: Decodable {
 
         /// Rarer than `.rare` cards
         case mythic
+
+        case special
+
+        case bonus
     }
 
     public struct PriceCategory: Hashable, Decodable {
